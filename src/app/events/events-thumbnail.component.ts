@@ -1,9 +1,11 @@
 import { Component, Input } from '@angular/core'
+import { IEvent } from './shared/index'
+import { from } from 'rxjs';
 
 @Component({
 	selector: 'event-thumbnail',
 	template: `
-	<div class="well hoverwell thumbnail">
+	<div [routerLink]="['/events', event.id]" class="well hoverwell thumbnail">
 		<h2>{{event?.name}}</h2>
 		<div>Date: {{event?.date}}</div>
 		<div [ngClass] ="getStartTimeClass()" [ngSwitch]="event?.time">Time: {{event?.time}}
@@ -28,7 +30,7 @@ import { Component, Input } from '@angular/core'
 		`]
 })
 export class EventsThumbnailComponent {
-	@Input() event: any
+	@Input() event: IEvent
 	getStartTimeClass(){
 	if (this.event && this.event.time === '8:00 am')
 		return 'green bold'
